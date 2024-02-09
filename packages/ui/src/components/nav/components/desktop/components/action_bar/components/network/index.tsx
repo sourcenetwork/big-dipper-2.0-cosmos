@@ -17,8 +17,8 @@ const Network: FC<NetworkProps> = ({ className, toggleNetwork }) => {
   return (
     <div
       className={cx(classes.root, className)}
-      onClick={toggleNetwork}
-      role="button"
+      //onClick={toggleNetwork}
+      //role="button"
       tabIndex={0}
       aria-label={selectedName}
     >

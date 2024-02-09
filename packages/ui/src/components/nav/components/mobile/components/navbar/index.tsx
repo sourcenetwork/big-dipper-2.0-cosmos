@@ -30,8 +30,8 @@ const Navbar = (props: NavbarProps) => {
         {/* =================================== */}
         <div
           className={classes.network}
-          onClick={openNetwork}
-          role="button"
+          //onClick={openNetwork}
+          //role="button"
           tabIndex={0}
           aria-label={selectedName}
         >
