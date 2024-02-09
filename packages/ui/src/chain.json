@@ -228,12 +228,12 @@
         }
       },
       "endpoints": {
-        "graphql": "http://hasura:8080/v1/graphql",
-        "graphqlWebsocket": "ws://hasura:8080/v1/graphql",
-        "publicRpcWebsocket": "ws://hasura:8080/websocket"
+        "graphql": "http://3.90.67.94:8080/v1/graphql",
+        "graphqlWebsocket": "ws://3.90.67.94:8080/v1/graphql",
+        "publicRpcWebsocket": "ws://3.90.67.94:8080/websocket"
       },
       "marketing": {
-        "matomoURL": "https://analytics.bigdipper.live",
+        "matomoURL": "",
         "matomoSiteID": "8"
       }
     }
