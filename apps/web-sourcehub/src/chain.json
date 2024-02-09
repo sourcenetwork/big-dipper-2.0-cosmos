@@ -228,9 +228,9 @@
         }
       },
       "endpoints": {
-        "graphql": "http://3.90.67.94:8080/v1/graphql",
-        "graphqlWebsocket": "ws://3.90.67.94:8080/v1/graphql",
-        "publicRpcWebsocket": "ws://3.90.67.94:8080/websocket"
+        "graphql": "http://44.204.229.186:8080/v1/graphql",
+        "graphqlWebsocket": "ws://44.204.229.186:8080/v1/graphql",
+        "publicRpcWebsocket": "ws://44.204.229.186:8080/websocket"
       },
       "marketing": {
         "matomoURL": "",
