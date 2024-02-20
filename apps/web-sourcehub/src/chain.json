@@ -5,7 +5,7 @@
     "profile": false,
     "graphqlWs": false
   },
-  "previewImage": "https://s3.bigdipper.live/desmos.png",
+  "previewImage": "https://media.source.network/blog-feature-image-4.png",
   "themes": {
     "default": "light",
     "themeList": [
@@ -228,9 +228,9 @@
         }
       },
       "endpoints": {
-        "graphql": "http://44.204.229.186:8080/v1/graphql",
-        "graphqlWebsocket": "ws://44.204.229.186:8080/v1/graphql",
-        "publicRpcWebsocket": "ws://44.204.229.186:8080/websocket"
+        "graphql": "https://gql.explorer.testnet1.source.network/v1/graphql",
+        "graphqlWebsocket": "wss://gql.explorer.testnet1.source.network/v1/graphql",
+        "publicRpcWebsocket": "wss://gql.explorer.testnet1.source.network/websocket"
       },
       "marketing": {
         "matomoURL": "",
