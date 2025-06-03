@@ -1,11 +1,12 @@
 {
-  "chainName": "base",
-  "title": "Desmos Block Explorer",
+  "chainName": "SourceHub",
+  "title": "SourceHub - Source's trust protocol",
   "extra": {
     "profile": true,
     "graphqlWs": false
   },
-  "previewImage": "https://s3.bigdipper.live/desmos.png",
+  "previewImage": "https://media.source.network/blog-feature-image-4.png",
+
   "themes": {
     "default": "light",
     "themeList": [
@@ -208,52 +209,22 @@
   "keplr": "{\"chainId\":\"desmos-mainnet\",\"chainName\":\"Desmos\",\"chainSymbolImageUrl\":\"https://raw.githubusercontent.com/chainapsis/keplr-chain-registry/main/images/desmos-mainnet/chain.png\",\"rpc\":\"https://rpc.mainnet.desmos.network\",\"rest\":\"https://api.mainnet.desmos.network\",\"nodeProvider\":{\"name\":\"Forbole\",\"email\":\"info@forbole.com\",\"website\":\"https://www.forbole.com\"},\"bip44\":{\"coinType\":852},\"bech32Config\":{\"bech32PrefixAccAddr\":\"desmos\",\"bech32PrefixAccPub\":\"desmospub\",\"bech32PrefixValAddr\":\"desmosvaloper\",\"bech32PrefixValPub\":\"desmosvaloperpub\",\"bech32PrefixConsAddr\":\"desmosvalcons\",\"bech32PrefixConsPub\":\"desmosvalconspub\"},\"currencies\":[{\"coinDenom\":\"DSM\",\"coinMinimalDenom\":\"udsm\",\"coinDecimals\":6,\"coinGeckoId\":\"desmos\"}],\"feeCurrencies\":[{\"coinDenom\":\"DSM\",\"coinMinimalDenom\":\"udsm\",\"coinDecimals\":6,\"coinGeckoId\":\"desmos\",\"gasPriceStep\":{\"low\":0.01,\"average\":0.03,\"high\":0.05}}],\"stakeCurrency\":{\"coinDenom\":\"DSM\",\"coinMinimalDenom\":\"udsm\",\"coinDecimals\":6,\"coinGeckoId\":\"desmos\"},\"features\":[]}",
   "chains": [
     {
-      "network": "desmos-mainnet",
-      "chainType": "Mainnet",
-      "genesis": {
-        "time": "2021-08-31T16:15:00",
-        "height": 1
-      },
-      "prefix": {
-        "consensus": "desmosvalcons",
-        "validator": "desmosvaloper",
-        "account": "desmos"
-      },
-      "primaryTokenUnit": "udsm",
-      "votingPowerTokenUnit": "udsm",
-      "tokenUnits": {
-        "udsm": {
-          "display": "dsm",
-          "exponent": 6
-        }
-      },
-      "endpoints": {
-        "graphql": "https://gql.desmos.forbole.com/v1/graphql",
-        "graphqlWebsocket": "wss://gql.desmos.forbole.com/v1/graphql",
-        "publicRpcWebsocket": "wss://rpc.desmos.forbole.com/websocket"
-      },
-      "marketing": {
-        "matomoURL": "https://analytics.bigdipper.live",
-        "matomoSiteID": "8"
-      }
-    },
-    {
-      "network": "morpheus-apollo-3",
+      "network": "sourcehub-devnet",
       "chainType": "Testnet",
       "genesis": {
         "time": "2022-10-24T08:00:00",
         "height": 7942286
       },
       "prefix": {
-        "consensus": "desmosvalcons",
-        "validator": "desmosvaloper",
-        "account": "desmos"
+        "consensus": "sourcevalcons",
+        "validator": "sourcevaloper",
+        "account": "source"
       },
-      "primaryTokenUnit": "udaric",
-      "votingPowerTokenUnit": "udaric",
+      "primaryTokenUnit": "uopen",
+      "votingPowerTokenUnit": "uopen",
       "tokenUnits": {
         "udaric": {
-          "display": "daric",
+          "display": "open",
           "exponent": 6
         }
       },
@@ -263,8 +234,8 @@
         "publicRpcWebsocket": "wss://rpc-morpheus.desmos.forbole.com/websocket"
       },
       "marketing": {
-        "matomoURL": "https://analytics.bigdipper.live",
-        "matomoSiteID": "8"
+        "matomoURL": "",
+        "matomoSiteID": ""
       }
     }
   ]
