@@ -213,7 +213,7 @@
       "chainType": "Testnet",
       "genesis": {
         "time": "2022-10-24T08:00:00",
-        "height": 7942286
+        "height": 1
       },
       "prefix": {
         "consensus": "sourcevalcons",
@@ -229,9 +229,9 @@
         }
       },
       "endpoints": {
-        "graphql": "https://gql-morpheus.desmos.forbole.com/v1/graphql",
-        "graphqlWebsocket": "wss://gql-morpheus.desmos.forbole.com/v1/graphql",
-        "publicRpcWebsocket": "wss://rpc-morpheus.desmos.forbole.com/websocket"
+        "graphql": "https://localhost/v1/graphql",
+        "graphqlWebsocket": "wss://localhost/v1/graphql",
+        "publicRpcWebsocket": "wss://localhost/websocket"
       },
       "marketing": {
         "matomoURL": "",
