@@ -19,9 +19,16 @@ const { title } = chainConfig();
 function MyApp(props: MainProps<{ initialApolloState?: NormalizedCacheObject }>) {
   useApp();
   const { pageProps } = props;
-  const apolloClient = useApollo(pageProps.initialApolloState);
+  const { apolloClient, err } = useApollo(pageProps.initialApolloState);
   const { t } = useAppTranslation();
   const { location } = useWindowOrigin();
+
+  if (!apolloClient) {
+    return <div>Loading</div>;
+  }
+  if (err) {
+    return <div>Err: {err.message} </div>;
+  }
 
   return (
     <RecoilRoot>

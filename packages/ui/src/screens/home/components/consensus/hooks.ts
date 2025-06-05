@@ -5,7 +5,7 @@ import chainConfig from '@/chainConfig';
 import useShallowMemo from '@/hooks/useShallowMemo';
 import { hexToBech32 } from '@/utils/hex_to_bech32';
 
-const { endpoints, prefix } = chainConfig();
+const { prefix } = chainConfig();
 
 /* Checking if the code is running on the server or the client. */
 const ssrMode = typeof window === 'undefined';
@@ -43,13 +43,6 @@ type NewRoundResult = {
     'tm.event': ['NewRound'];
   };
 };
-
-const wsEndpoints = [
-  process.env.NEXT_PUBLIC_RPC_WEBSOCKET,
-  endpoints.publicRpcWebsocket,
-  endpoints.graphqlWebsocket,
-  'ws://localhost:3000/websocket',
-];
 
 const stepReference = {
   0: 0,
@@ -132,8 +125,8 @@ function useConnect() {
   const [loadingNewStep, setLoadingNewStep] = useState(true);
   const [newStep, setNewStep] = useState<unknown | null>(null);
 
-  const connect = useCallback(() => {
-    const ws = new WebSocket(wsEndpoints.find((u) => u) ?? '');
+  const connect = useCallback((endpoint: string) => {
+    const ws = new WebSocket(endpoint);
     const reconnectTimer = setTimeout(() => ws.close(), (12 + Math.random() * 4) * 1000);
 
     ws.onopen = () => {
@@ -169,11 +162,12 @@ function useConnect() {
     client = ws;
   }, []);
   useEffect(() => {
-    if (!ssrMode) connect();
-    return () => {
-      client?.close();
-      client = null;
-    };
+    fetch('/api/endpoints')
+      .then((resp) => resp.json())
+      .then((endpoints) => {
+        console.log('connecting to', endpoints.chainRpcSocket);
+        connect(endpoints.chainRpcSocket);
+      });
   }, [connect]);
 
   return { loadingNewRound, loadingNewStep, newRound, newStep };
