@@ -16,7 +16,7 @@ import { Kind, OperationTypeNode } from 'graphql';
 import { createClient } from 'graphql-ws';
 import { useEffect, useState } from 'react';
 
-const { chainType, endpoints, extra } = chainConfig();
+const {chainType, extra} = chainConfig();
 
 /* Checking if the code is running on the server or the client. */
 const ssrMode = typeof window === 'undefined';
@@ -24,18 +24,6 @@ const ssrMode = typeof window === 'undefined';
 
 /* A global variable that stores the Apollo Client. */
 let globalApolloClient: ApolloClient<NormalizedCacheObject>;
-
-const urlEndpoints = [
-  process.env.NEXT_PUBLIC_GRAPHQL_URL,
-  endpoints.graphql,
-  'http://localhost:3000/v1/graphql',
-];
-
-const wsEndpoints = [
-  process.env.NEXT_PUBLIC_GRAPHQL_WS,
-  endpoints.graphqlWebsocket,
-  'ws://localhost:3000/websocket',
-];
 
 /* Setting the default options for the Apollo Client. */
 const defaultOptions: DefaultOptions = {
@@ -109,11 +97,14 @@ export const BIG_DIPPER_NETWORKS = 'https://raw.githubusercontent.com/forbole/bi
  * @param initialState - The initial state of the cache.
  * @returns A function that takes an initial state and returns an Apollo Client.
  */
-function createApolloClient(initialState = {}) {
+async function createApolloClient(initialState = {}) {
   /* Restoring the cache from the initial state. */
   const cache = new InMemoryCache().restore(initialState);
 
   const restLink = new RestLink({ uri: BIG_DIPPER_NETWORKS });
+
+  const response = await fetch('/api/endpoints');
+  const endpoints = await response.json();
 
   const httpLink =
     // split(
@@ -123,11 +114,11 @@ function createApolloClient(initialState = {}) {
     split(
       ({ operationName, variables }) =>
         /^(?:Account|Validator)Delegations$/.test(operationName) && variables?.pagination,
-      createHttpLink(urlEndpoints.find((u) => u)),
-      createHttpBatchLink(urlEndpoints.find((u) => u))
+      createHttpLink(endpoints.graphql),
+      createHttpBatchLink(endpoints.graphql)
     );
   const httpOrWsLink = ssrMode
-    ? createHttpBatchLink(urlEndpoints.find((u) => u))
+    ? createHttpBatchLink(endpoints.graphql)
     : split(
         /* Checking if the query is a subscription. */
         ({ query }) => {
@@ -137,7 +128,7 @@ function createApolloClient(initialState = {}) {
             node.operation === OperationTypeNode.SUBSCRIPTION;
           return isSubscription;
         },
-        createWebSocketLink(wsEndpoints.find((u) => u)),
+        createWebSocketLink(endpoints.graphqlWebsocket),
         httpLink
       );
 
@@ -167,39 +158,20 @@ function createApolloClient(initialState = {}) {
 }
 
 /**
- * If we're on the server, we create a new Apollo Client. If we're on the client, we create a new
- * Apollo Client if one doesn't already exist
- * @param {NormalizedCacheObject} [initialState] - This is the initial state of the Apollo Client. It
- * is used to hydrate the cache.
- * @returns A function that takes in an initialState and returns a new ApolloClient.
- */
-export function initializeApollo(initialState?: NormalizedCacheObject) {
-  // For SSG and SSR always create a new Apollo Client
-  if (ssrMode) return createApolloClient(initialState);
-
-  /* Checking if the globalApolloClient is already created. If it is not, it creates it. */
-  if (!globalApolloClient) {
-    globalApolloClient = createApolloClient(initialState);
-  }
-
-  return globalApolloClient;
-}
-
-/**
  * It initializes the Apollo Client with the initial state and returns the store
  * @param {NormalizedCacheObject} initialState - This is the initial state of the Apollo Client.
  * @returns The Apollo Client instance.
  */
 function useApollo(initialState?: NormalizedCacheObject) {
   /* Setting the initial state of the Apollo Client. */
-  const [store, setStore] = useState(() => initializeApollo(initialState));
+  const [apolloClient, setClient] = useState(null);
+  const [err, setErr] = useState(null);
 
   useEffect(() => {
-    /* Setting the store with the new initial state. */
-    setStore(initializeApollo(initialState));
-  }, []);
-
-  return store;
+    if (apolloClient) return;
+    createApolloClient(initialState).then(setClient).catch(setErr);
+  })
+  return {apolloClient, err};
 }
 
 export default useApollo;

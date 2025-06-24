@@ -1,31 +1,36 @@
-# Big Dipper 2.0 ✨ (Cosmos Based Chains)
+# Source Big Dipper 2.0
 
-Big Dipper is an open-source block explorer and token management tool serving over 10 proof-of-stake blockchains. It has been forked more than 100 times on GitHub and has served audiences from 140 countries and regions.
+This repository is a fork of Forbole's Big Dipper, a block explorer for cosmos chains.
+It's been modified to track only SourceHub networks.
 
-**This repo contains the UI of big dipper 2.0 only**
+## Building and running
 
-## Getting started
+The repository contains a Dockerfile which can be used to run a production build of BigDipper.
 
-Please migrate from yarn 1 to [yarn berry](https://yarnpkg.com/getting-started/install)
+The following environment variables can be set at runtime to configure the data source endpoints:
 
 ```
-yarn install
+HASURA_GRAPHQL=http://10.42.0.72:8080/v1/graphql
+HASURA_GRAPHQL_WS=ws://10.42.0.72:8080/v1/graphql
+CHAIN_RPC_WS=ws://10.42.0.87:26657/websocket
 ```
 
-## Documentation
+HASURA_GRAPHQL: http endpoint for the Hasura GraphQL API (as defined by Callisto)
+HASURA_GRAPHQL_WS: websocket endpoint for the Hasura GraphQL API (as defined by Callisto)
+CHAIN_RPC_WS: Websocket address for the CometBFT RPC API of a node from the chain which is being tracked. See [JSONRPC/websockets
+](https://docs.cometbft.com/v0.34/rpc/)
 
-Read our official documentation at [http://docs.bigdipper.live/](http://docs.bigdipper.live/)
+## Adding SourceHub chains
 
-## Issue Reporting
+There are two primary files which developers should modify to track different instances of SourceHub.
 
-For UI related issues please report it here [https://github.com/forbole/big-dipper-2.0-cosmos/issues](https://github.com/forbole/big-dipper-2.0-cosmos/issues).
+[chain.json](apps/web/src/chain.json)
+[networks menu](packages/ui/src/hooks/useBigDipperNetworks/index.ts)
 
-For Hasura and BdJuno issues please report it here [https://github.com/forbole/bdjuno/issues](https://github.com/forbole/bdjuno/issues)
+## Credits
 
-## License
+Original repository: https://github.com/forbole/big-dipper-2.0-cosmos
 
-Read our license at [https://raw.githubusercontent.com/forbole/big-dipper-2.0-cosmos/master/LICENSE](https://raw.githubusercontent.com/forbole/big-dipper-2.0-cosmos/master/LICENSE)
+## Licensing
 
-## Ledger and Transaction Support
-
-While Big Dipper 2.0 no longer supports ledger or any kind of transactions in favor of [Forbole X](https://github.com/forbole/forbole-x), the original [Big Dipper](https://github.com/forbole/big-dipper) will continue have this feature.
+big-dipper-2.0 is an Apache lincensed product.
